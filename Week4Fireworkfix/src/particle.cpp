@@ -1,3 +1,14 @@
+/*
+ *  particle.cpp
+ *  emptyExample
+ *
+ *  Created by Amira Pettus on 11/1/12.
+ *  Copyright 2012 __MyCompanyName__. All rights reserved.
+ *
+ */
+
+
+
 #include "particle.h"
 #include "ofMain.h"
 
@@ -5,7 +16,7 @@
 //------------------------------------------------------------
 particle::particle(){
 	setInitialCondition(0,0,0,0);
-	damping = ofRandom(0.7f,0.99f);
+	damping = 0.01f;
 }
 
 //------------------------------------------------------------
@@ -43,8 +54,6 @@ void particle::setInitialCondition(float px, float py, float vx, float vy){
 void particle::update(){	
 	vel = vel + frc;
 	pos = pos + vel;
-	
-	vel *= damping;//pat explain
 }
 
 //------------------------------------------------------------
@@ -53,9 +62,9 @@ void particle::draw(){
 	
 	
 	//for (int i = 0; i < particles.size(); i++){
-//		ofSetColor(255,23,0);
-//		particles[i].draw();
-//	}
+	//		ofSetColor(255,23,0);
+	//		particles[i].draw();
+	//	}
 	
 	
 }

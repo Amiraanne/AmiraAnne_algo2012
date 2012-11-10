@@ -5,7 +5,7 @@
 //------------------------------------------------------------
 particle::particle(){
 	setInitialCondition(0,0,0,0);
-	damping = ofRandom(0.7f,0.99f);
+	damping = 0.08f;
 }
 
 //------------------------------------------------------------
@@ -43,20 +43,49 @@ void particle::setInitialCondition(float px, float py, float vx, float vy){
 void particle::update(){	
 	vel = vel + frc;
 	pos = pos + vel;
-	
-	vel *= damping;//pat explain
 }
 
 //------------------------------------------------------------
 void particle::draw(){
-    ofCircle(pos.x, pos.y, 2);
-	
-	
-	//for (int i = 0; i < particles.size(); i++){
-//		ofSetColor(255,23,0);
-//		particles[i].draw();
-//	}
-	
-	
+    ofCircle(pos.x, pos.y, .5);
 }
 
+
+//------------------------------------------------------------
+void particle::bounceOffWalls(){
+	
+	// sometimes it makes sense to damped, when we hit
+	bool bDampedOnCollision = true;
+	bool bDidICollide = false;
+	
+	// what are the walls
+	float minx = 0;
+	float miny = 0;
+	float maxx = ofGetWidth();
+	float maxy = ofGetHeight();
+	
+	if (pos.x > maxx){
+		pos.x = maxx; // move to the edge, (important!)
+		vel.x *= -1;
+		bDidICollide = true;
+	} else if (pos.x < minx){
+		pos.x = minx; // move to the edge, (important!)
+		vel.x *= -1;
+		bDidICollide = true;
+	}
+	
+	if (pos.y > maxy){
+		pos.y = maxy; // move to the edge, (important!)
+		vel.y *= -1;
+		bDidICollide = true;
+	} else if (pos.y < miny){
+		pos.y = miny; // move to the edge, (important!)
+		vel.y *= -1;
+		bDidICollide = true;
+	}
+	
+	if (bDidICollide == true && bDampedOnCollision == true){
+		vel *= 0.3;
+	}
+	
+}

@@ -5,7 +5,7 @@
 //------------------------------------------------------------
 particle::particle(){
 	setInitialCondition(0,0,0,0);
-	damping = ofRandom(0.7f,0.99f);
+	damping = 0.01f;
 }
 
 //------------------------------------------------------------
@@ -43,8 +43,6 @@ void particle::setInitialCondition(float px, float py, float vx, float vy){
 void particle::update(){	
 	vel = vel + frc;
 	pos = pos + vel;
-	
-	vel *= damping;//pat explain
 }
 
 //------------------------------------------------------------

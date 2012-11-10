@@ -1,11 +1,12 @@
 /*
  *  firework.h
- *  Week4
+ *  emptyExample
  *
- *  Created by Amira Pettus on 10/28/12.
+ *  Created by Amira Pettus on 11/1/12.
  *  Copyright 2012 __MyCompanyName__. All rights reserved.
  *
  */
+
 
 //here will just be the bool explosion at the target ( middle of screen)
 //using a key pressed 
@@ -17,19 +18,28 @@
 #include "particle.h"
 
 class firework {
+	
 public:
+	
+	float lifetime;
+	float ascendTime;
+	
+	float born;
+	float elapsed;
+	
+	bool exploded;
+	int particleCount;
+	
+	ofPoint currentPos;
+	ofPoint targetPos;
+	
 	void setup(int x, int y);
 	void update();
 	void draw();
-
-private:
+	void explode();
+	
 	vector <particle> particles;
 	
-	ofPoint targetPos;
-	ofPoint currentPos;
-	
-	bool exploded;
-
 };
 
 #endif 

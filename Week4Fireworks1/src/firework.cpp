@@ -6,34 +6,48 @@
  *  Copyright 2012 __MyCompanyName__. All rights reserved.
  *
  */
-
+//rely on distance and not on time ( predefine target pos and subtract)
 #include "firework.h"
 
 void firework::setup(int x, int y){
-
-	currentPos.x = x;
 	targetPos = ofPoint(x,y);
+	currentPos.x = ofRandom(ofGetWidth());
+	currentPos.y = ofGetHeight();
 	
 	exploded = false;
-	lifetime = 3;
-	ascendTime = 2;
-	born = ofGetElapsedTimef();
 }
 
 //-----------------------------------------------------//
 
 void firework::update(){
 	
-	elapsed = ofGetElapsedTimef()-born;
-	
-	if (elapsed > ascendTime && !exploded){
-		exploded = true;
-		explode();
-
+	if (!exploded){
+		cout << "NOT EXPLOTE YET" << endl;
+		if ( targetPos.distance(currentPos) < 5  ){
+			particles.clear();
+			
+			for (int i = 0; i < 1000; i++){
+				particle newParticle;
+				float vx = ofRandom(-4,4);
+				float vy = ofRandom(-4,4);
+				newParticle.setInitialCondition(currentPos.x,currentPos.y,vx, vy);
+				particles.push_back(newParticle);
+			}
+			
+			exploded = true;
+		
+		} else {
+			currentPos.x = ofLerp(currentPos.x, targetPos.x, 0.1);
+			currentPos.y = ofLerp(currentPos.y, targetPos.y, 0.1);
+		}
+	} else {
+		cout << "EXPLOTE" << endl;
 	}
-	
+
+
 	for (int i = 0; i < particles.size(); i++){
-		particles[i].addDampingForce();
+		//particles[i].addDampingForce();
+		particles[i].addForce(0,0.000098);//gravityyyy
 		particles[i].update();
 	}
 }
@@ -45,7 +59,7 @@ void firework::draw(){
 
 	if (!exploded) {
 		ofSetColor(255, 255, 255);
-		ofCircle(currentPos.x, currentPos.y, 6);// a single white particle is supposed to float to target pos before firework is triggered
+		ofCircle(currentPos, 6);// a single white particle is supposed to float to target pos before firework is triggered
 												//how do I do this when the mouse is pressed?	
 	}
 
@@ -55,17 +69,3 @@ void firework::draw(){
 	}
 	
 }
-//-----------------------------------------------------//
-
-void firework::explode() {
-	
-	for (int i = 0; i < particleCount; i++){
-		particle particle;
-		float vx = ofRandom(-2,2);
-		float vy = ofRandom(-2,2);
-		//particles.setup(currentPos.x, currentPos.y, vx, vy);
-	    particles.push_back(particle);
-	}
-	
-
-};

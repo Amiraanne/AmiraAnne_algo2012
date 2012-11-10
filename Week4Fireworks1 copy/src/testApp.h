@@ -3,6 +3,8 @@
 
 
 #include "ofMain.h"
+
+#include "particle.h"
 #include "firework.h"
 
 class testApp : public ofSimpleApp{
@@ -21,7 +23,11 @@ class testApp : public ofSimpleApp{
 		void mousePressed(int x, int y, int button);
 		void mouseReleased();
 		
-		firework fw;
+		// let's make a vector of them
+		vector <particle> particles; //<filled with> called
+		vector <firework>fireworks;
+	
+	
 };
 
 #endif

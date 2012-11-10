@@ -17,19 +17,28 @@
 #include "particle.h"
 
 class firework {
+	
 public:
+	
+	float lifetime;
+	float ascendTime;
+	
+	float born;
+	float elapsed;
+	
+	bool exploded;
+	int particleCount;
+	
+	ofPoint currentPos;
+	ofPoint targetPos;
+	
 	void setup(int x, int y);
 	void update();
 	void draw();
-
-private:
+	void explode();
+	
 	vector <particle> particles;
 	
-	ofPoint targetPos;
-	ofPoint currentPos;
-	
-	bool exploded;
-
 };
 
 #endif 
