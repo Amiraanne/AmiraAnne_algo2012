@@ -2,27 +2,49 @@
 
 //--------------------------------------------------------------
 void testApp::setup(){
+	ofBackground(12, 151, 244);
+	
+	ofSetVerticalSync(TRUE);
 	ofSetFrameRate(30);
-	myRadius = 20;
-	vel.x = 20;
-	pos.x = 20;
+	ofEnableAlphaBlending();
+	ofEnableSmoothing();
+	ofSetCircleResolution(100);
+	
+	
+	for (int i = 0; i < 500; i++){
+		Particles theParticles;
+		vx = ofRandom(-4,4);
+		vy = ofRandom(-4,4);
+		theParticles.setInitialCondition(ofGetWidth()/2,ofGetHeight()/2,vx, vy, vz);
+		theParticles.damping = ofRandom(0.01, 0.03);
+		particleVector.push_back(theParticles);
+		
+		
+	}
 
 }
 
 //--------------------------------------------------------------
 void testApp::update(){
 	
-	if(pos.x >= ofGetWidth() - myRadius || pos.x <= myRadius){
-		vel.x *= -1.0;
+	for (int i = 0; i < fireworks.size(); i++){
+		
+		if (fireworks[i].elapsed > fireworks[i].lifetime)
+			fireworks.erase(fireworks.begin()+i);
+		else
+			fireworks[i].update();
 	}
+	
 
 }
 
 //--------------------------------------------------------------
 void testApp::draw(){
-	ofSetColor(0, 255, 0);
 	
-	ofCircle(pos.x, 500, myRadius);
+	ofBackground(255, 255, 255);
+	for (int i = 0; i < fireworks.size(); i++){
+		fireworks[i].draw();
+	}
 }
 
 //--------------------------------------------------------------
@@ -52,6 +74,11 @@ void testApp::mousePressed(int x, int y, int button){
 
 //--------------------------------------------------------------
 void testApp::mouseReleased(int x, int y, int button){
+	
+	for (int i = 0; particles.size(); i++){
+		float vx = ofRandom(-4,4);
+		float vy = ofRandom(-4,4);
+		particleVector[i].setInitialCondition(mouseX,mouseY,vx, vy, vz);
 
 }
 
