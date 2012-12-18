@@ -15,19 +15,15 @@ class testApp : public ofBaseApp{
 		void mouseDragged(int x, int y, int button);
 		void mousePressed(int x, int y, int button);
 		void mouseReleased(int x, int y, int button);
-<<<<<<< HEAD
-				
-		vector< rectangle > rectangles
+		void windowResized(int w, int h);
+		void dragEvent(ofDragInfo dragInfo);
+		void gotMessage(ofMessage msg);
+		
+	
+		void	drawText();
+		void	typeKey(int key);
+		string	text;
+		int		position;
+		int		cursorx, cursory;
 	
 };
-=======
-		
-		ofPoint pos;
-		float radiusSize;
-	
-		vector <particle> particles;
-		bool	pdfRendering;
-		
-	};
->>>>>>> 78879bf... commit
-#endif
